@@ -9,6 +9,14 @@ connectToDB();
 const app = express();
 app.use(express.json());
 
+// cors policy
+app.use(
+  cors({
+    origin: ["https://blog-frontend-marihan.vercel.app"],
+    credentials: true,
+  }),
+);
+
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -20,7 +28,6 @@ app.use(
   }),
 );
 
-app.set("trust proxy", 1);
 // Rate Limting
 app.use(
   rateLimting({
@@ -29,17 +36,6 @@ app.use(
     standardHeaders: true,
     legacyHeaders: false,
   }),
-);
-
-// cors policy
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://blog-frontend-marihan.vercel.app",
-    ],
-    credentials: true,
-  })
 );
 
 // Routes
